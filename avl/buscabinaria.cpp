@@ -1,9 +1,11 @@
 #include "arvore.h"
 #include <iostream>
 
+// Busca binária recurssiva para árvore AVL
 bool buscaAVL(NoAVL* raiz, int v) {
   if (raiz == nullputr0
     return false;
+  
  if (valor == raiz->chave)
   return true;
  else if (valor < raiz->chave)
