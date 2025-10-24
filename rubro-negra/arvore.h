@@ -7,7 +7,11 @@
 /** @enum "Cor"
  *  @brief Cores dos nós da árvore rubro-negra.
  */
-enum Cor { VERMELHO, PRETO };
+enum Cor
+{
+    VERMELHO,
+    PRETO
+};
 
 /**
  * @class "ArvoreRN"
@@ -15,62 +19,73 @@ enum Cor { VERMELHO, PRETO };
  * Aqui, são implementadas os métodos virtuais da classe
  * abstrata "Arvore".
  */
-class ArvoreRN : public Arvore {
-    public:
-        /**
-         * @struct "No"
-         * @brief Estrutura de um nó da rubro-negra.
-         */
-        struct No {
-            int valor;  
-            Cor cor;   
-            No* esq;    
-            No* dir;    
-            No* pai; 
-            No(int v) : valor(v), cor(VERMELHO), esq(nullptr), dir(nullptr), pai(nullptr) {}
-        };
+class ArvoreRN : public Arvore
+{
+public:
+    /**
+     * @struct "No"
+     * @brief Estrutura de um nó da rubro-negra.
+     */
+    struct No
+    {
+        int valor;
+        Cor cor;
+        No *esq;
+        No *dir;
+        No *pai;
+        No(int v) : valor(v), cor(VERMELHO), esq(nullptr), dir(nullptr), pai(nullptr) {}
+    };
 
-        /** 
-         * @brief Raíz da árvore.
-         */
-        No* raiz;
-        
-        /** 
-         * @brief Nó sentinel.
-         */
-        No* NIL;
+    /**
+     * @brief Raíz da árvore.
+     */
+    No *raiz;
 
-        /** 
-         * @brief Construtor da classe.
-         */
-        ArvoreRN();
+    /**
+     * @brief Nó sentinel.
+     */
+    No *NIL;
 
-        /**
-         * @brief Gera uma árvore rubro-negra com valores aleatórios.
-         */
-        void gerarArvoreAleatoria() override;
+    /**
+     * @brief Construtor da classe.
+     */
+    ArvoreRN();
 
-        /**
-         * @brief Insere um nó na árvore.
-         */
-        void inserir(int valor) override;
+    /**
+     * @brief Gera uma árvore rubro-negra com valores aleatórios.
+     */
+    void gerarArvoreAleatoria() override;
 
-        /**
-         * @brief Busca um valor na árvore.
-         * @param valor Valor a ser procurado.
-         */
-        bool buscar(int valor) override;
+    /**
+     * @brief Insere um nó na árvore.
+     */
+    void inserir(int valor) override;
 
-        /**
-         * @brief Imprime a árvore.
-         */
-        std::string imprimir() override;
+    /**
+     * @brief Busca um valor na árvore.
+     * @param valor Valor a ser procurado.
+     */
+    bool buscar(int valor) override;
 
-    private:
-        int alturaTotal(No* no);
-        void rotacaoEsquerda(No* x);
-        void rotacaoDireita(No* y);
-        void corrigirInsercao(No* z);
+    /**
+     * @brief Imprime a árvore.
+     */
+    std::string imprimir() override;
+
+    /**
+     * @brief Remove um nó da árvore rubro-negra.
+     */
+    bool remover(int valor) override;
+
+private:
+    int alturaTotal(No *no);
+    void rotacaoEsquerda(No *x);
+    void rotacaoDireita(No *y);
+    void corrigirInsercao(No *z);
+    No* buscarNo(int valor);
+    No* minimo(No* no);
+    void transplante(No* u, No* v);
+    void corrigirRemocao(No* x);
 };
 
 #endif
