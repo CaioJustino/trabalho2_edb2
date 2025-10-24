@@ -1,15 +1,22 @@
 #include "arvore.h"
 #include <iostream>
 
-// Busca binária recurssiva para árvore Rubro-Negra
-bool buscarRN(NoRN* raiz, int v) {
-  if (raiz == nullptr)
-    return false;
+// Função pública — chamada externamente
+bool ArvoreRN::buscar(int valor) {
+    return buscarRec(raiz, valor);
+}
 
-  if (valor == raiz->chave)
-    return false;
-  else if (valor < raiz->chave)
-    return buscarRN(raiz->esq, valor);
-  else
-    return buscarRN(raiz->dir, valor);
+// Função auxiliar recursiva
+bool ArvoreRN::buscarRec(No* no, int valor) {
+    // Como a árvore RN usa um nó NIL em vez de nullptr,
+    // verificamos se o nó atual é o sentinel.
+    if (no == NIL)
+        return false;
+
+    if (valor == no->valor)
+        return true;
+    else if (valor < no->valor)
+        return buscarRec(no->esq, valor);
+    else
+        return buscarRec(no->dir, valor);
 }
