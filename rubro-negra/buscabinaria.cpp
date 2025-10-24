@@ -1,22 +1,29 @@
-#include "arvore.h"
+// Imports
 #include <iostream>
+#include <functional>
 
-// Função pública — chamada externamente
+#include "arvore.h"
+
+/**
+ * @brief Busca um valor na árvore Rubro-Negra.
+ * 
+ * A busca percorre a árvore recursivamente, comparando o valor procurado
+ * com o valor armazenado em cada nó até encontrar o elemento ou atingir
+ * o nó sentinel (NIL).
+ * 
+ * @param valor Valor a ser procurado.
+ */
 bool ArvoreRN::buscar(int valor) {
-    return buscarRec(raiz, valor);
-}
+    std::function<bool(No*)> buscarRec = [&](No* no) -> bool {
+        if (no == NIL)
+            return false;
+        if (valor == no->valor)
+            return true;
+        else if (valor < no->valor)
+            return buscarRec(no->esq);
+        else
+            return buscarRec(no->dir);
+    };
 
-// Função auxiliar recursiva
-bool ArvoreRN::buscarRec(No* no, int valor) {
-    // Como a árvore RN usa um nó NIL em vez de nullptr,
-    // verificamos se o nó atual é o sentinel.
-    if (no == NIL)
-        return false;
-
-    if (valor == no->valor)
-        return true;
-    else if (valor < no->valor)
-        return buscarRec(no->esq, valor);
-    else
-        return buscarRec(no->dir, valor);
+    return buscarRec(raiz);
 }

@@ -1,19 +1,29 @@
-#include "arvore.h"
+// Imports
 #include <iostream>
+#include <functional>
 
-// Função pública — chamada pelo usuário
+#include "arvore.h"
+
+/**
+ * @brief Busca um valor na árvore AVL.
+ * 
+ * A busca percorre a árvore recursivamente, comparando o valor procurado
+ * com o valor armazenado em cada nó até encontrar o elemento ou atingir
+ * uma folha nula.
+ * 
+ * @param valor Valor a ser procurado.
+ */
 bool ArvoreAVL::buscar(int valor) {
-    return buscarRec(raiz, valor);
-}
+    std::function<bool(No*)> buscarRec = [&](No* no) -> bool {
+        if (no == nullptr)
+            return false;
+        if (valor == no->valor)
+            return true;
+        else if (valor < no->valor)
+            return buscarRec(no->esq);
+        else
+            return buscarRec(no->dir);
+    };
 
-// Função auxiliar recursiva
-bool ArvoreAVL::buscarRec(No* no, int valor) {
-    if (no == nullptr)
-        return false;
-    if (valor == no->valor)
-        return true;
-    else if (valor < no->valor)
-        return buscarRec(no->esq, valor);
-    else
-        return buscarRec(no->dir, valor);
+    return buscarRec(raiz);
 }

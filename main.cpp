@@ -15,11 +15,10 @@ using namespace std;
  * Ela retorna um "menu interativo" que permite:
  * - Gerar árvores AVL e Rubro-Negra aleatórias.
  * - Inserir nós nas árvores.
- * - Remover nós das árvores.
  * - Buscar valores nas árvores.
  * - Imprimir as árvores.
  */
-int main(){
+int main() {
     unique_ptr<ArvoreAVL> avl = make_unique<ArvoreAVL>();
     unique_ptr<ArvoreRN> rb = make_unique<ArvoreRN>();
     bool avlGerada = false;
@@ -31,12 +30,15 @@ int main(){
 | |\/| |/ _ \ '_ \| | | |
 | |  | |  __/ | | | |_| |
 |_|  |_|\___|_| |_|\__,_|)" << endl;
+
         cout << "\n1 - Gerar uma árvore AVL aleatória.\n";
         cout << "2 - Gerar uma árvore Rubro-Negra aleatória.\n";
         cout << "\n3 - Inserir um nó na árvore AVL gerada.\n";
         cout << "4 - Inserir um nó na árvore Rubro-Negra gerada.\n";
-        cout << "\n5 - Imprimir a árvore AVL.\n";
-        cout << "6 - Imprimir a árvore Rubro-Negra.\n";
+        cout << "\n5 - Buscar um valor na árvore AVL gerada.\n";
+        cout << "6 - Buscar um valor na árvore Rubro-Negra gerada.\n";
+        cout << "\n7 - Imprimir a árvore AVL gerada.\n";
+        cout << "8 - Imprimir a árvore Rubro-Negra gerada.\n";
         cout << "0 - Encerrar a execução do programa.\n";
 
         int op;
@@ -96,11 +98,41 @@ int main(){
         }
 
         else if (op == 5) {
+            if (!avlGerada) {
+                cout << "\nGere a árvore AVL primeiro (opção 1)!\n"; continue;
+            }
+
+            int v;
+            cout << "Valor a buscar na árvore AVL: ";
+            cin >> v;
+
+            if (avl->buscar(v))
+                cout << "\nValor encontrado na árvore AVL!\n";
+            else
+                cout << "\nValor não encontrado na árvore AVL...\n";
+        }
+
+        else if (op == 6) {
+            if (!rbGerada) {
+                cout << "\nGere a árvore Rubro-Negra primeiro (opção 2)!\n"; continue;
+            }
+
+            int v;
+            cout << "Valor a buscar na árvore Rubro-Negra: ";
+            cin >> v;
+
+            if (rb->buscar(v))
+                cout << "\nValor encontrado na árvore Rubro-Negra!\n";
+            else
+                cout << "\nValor não encontrado na árvore Rubro-Negra...\n";
+        }
+
+        else if (op == 7) {
             cout << "\n---------- ÁRVORE AVL GERADA ----------\n";
             cout << avl->imprimir();
         }
 
-        else if (op == 6) {
+        else if (op == 8) {
             cout << "\n---------- ÁRVORE RUBRO-NEGRA GERADA ----------\n";
             cout << rb->imprimir();
         }
