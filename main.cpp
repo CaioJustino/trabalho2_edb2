@@ -41,9 +41,9 @@ int main()
         cout << "6 - Buscar um valor na árvore rubro-negra gerada.\n";
         cout << "\n7 - Imprimir a árvore AVL gerada.\n";
         cout << "8 - Imprimir a árvore rubro-negra gerada.\n";
-        cout << "9 - Remover um nó da árvore AVL gerada.\n";
+        cout << "\n9 - Remover um nó da árvore AVL gerada.\n";
         cout << "10 - Remover um nó da árvore rubro-negra gerada.\n";
-        cout << "0 - Encerrar a execução do programa.\n";
+        cout << "\n0 - Encerrar a execução do programa.\n";
 
         int op;
         cout << "Opção: ";
