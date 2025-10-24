@@ -50,6 +50,7 @@ class ArvoreAVL : public Arvore {
          */
         std::string imprimir() override;
 
+        
     private:
         int altura(No* t);
         void atualizaAltura(No* t);
@@ -58,6 +59,12 @@ class ArvoreAVL : public Arvore {
         No* rotacaoEsquerda(No* x);
         No* rotacaoDireita(No* y);
         No* balancear(No* no);
+
+
+     /**
+         * @brief Função auxiliar recursiva para busca binária.
+         */
+        bool buscarRec(No* no, int valor);
 };
 
 #endif
