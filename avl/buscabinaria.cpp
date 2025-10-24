@@ -1,15 +1,19 @@
 #include "arvore.h"
 #include <iostream>
 
-// Busca binária recurssiva para árvore AVL
-bool buscaAVL(NoAVL* raiz, int v) {
-  if (raiz == nullputr0
-    return false;
-  
- if (valor == raiz->chave)
-  return true;
- else if (valor < raiz->chave)
-  return buscaAVL(raiz->esq, v);
- else
-  return buscaAVL(raiz->dir, v);
+// Função pública — chamada pelo usuário
+bool ArvoreAVL::buscar(int valor) {
+    return buscarRec(raiz, valor);
+}
+
+// Função auxiliar recursiva
+bool ArvoreAVL::buscarRec(No* no, int valor) {
+    if (no == nullptr)
+        return false;
+    if (valor == no->valor)
+        return true;
+    else if (valor < no->valor)
+        return buscarRec(no->esq, valor);
+    else
+        return buscarRec(no->dir, valor);
 }
