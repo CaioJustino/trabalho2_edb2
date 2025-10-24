@@ -135,7 +135,7 @@ ArvoreAVL::No* ArvoreAVL::balancear(No* no) {
 
 /**
  * @brief Gera uma árvore AVL aleatória.
- * Insere entre 1 e 10 nós com valores de 0 a 100.
+ * Insere nós com valores de 0 a 100.
  */
 void ArvoreAVL::gerarArvoreAleatoria() {
     srand(time(nullptr));

@@ -1,6 +1,6 @@
 # Trabalho Unidade 2: Árvores Balanceadas (AVL e Rubro-Negra)
 
-O objetivo do trabalho é desenvolver, implementar e analisar o funcionamento de árvores balanceadas, especificamente as árvores AVL e Rubro-Negra, por meio de um projeto prático e de um relatório técnico.
+O objetivo do trabalho é desenvolver, implementar e analisar o funcionamento de árvores balanceadas, especificamente as árvores AVL e rubro-negra, por meio de um projeto prático e de um relatório técnico.
 
 O projeto deve demonstrar a estrutura de dados, as estratégias de balanceamento, as funções implementadas (como inserção, busca e remoção), além de apresentar os desafios enfrentados, as soluções adotadas e os resultados obtidos nos testes.
 <br><br>

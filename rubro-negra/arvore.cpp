@@ -112,8 +112,8 @@ void ArvoreRN::rotacaoDireita(No* y) {
 }
 
 /**
- * @brief Gera uma árvore Rubro-Negra aleatória.
- * Insere entre 1 e 10 nós com valores de 0 a 100.
+ * @brief Gera uma árvore rubro-negra aleatória.
+ * Insere nós com valores de 0 a 100.
  */
 void ArvoreRN::gerarArvoreAleatoria() {
     srand((unsigned)time(nullptr));
@@ -129,60 +129,6 @@ void ArvoreRN::gerarArvoreAleatoria() {
             inserir(v);
         }
     }
-}
-
-/**
- * @brief Corrige a árvore após inserção para manter as propriedades da árvore Rubro-Negra.
- * @param z Nó recém-inserido.
- */
-void ArvoreRN::corrigirInsercao(No* z) {
-    while (z->pai->cor == VERMELHO) {
-        if (z->pai == z->pai->pai->esq) {
-            No* y = z->pai->pai->dir;
-            
-            if (y->cor == VERMELHO) {
-                z->pai->cor = PRETO;
-                y->cor = PRETO;
-                z->pai->pai->cor = VERMELHO;
-                z = z->pai->pai;
-            }
-            
-            else {
-                if (z == z->pai->dir) {
-                    z = z->pai;
-                    rotacaoEsquerda(z);
-                }
-                
-                z->pai->cor = PRETO;
-                z->pai->pai->cor = VERMELHO;
-                rotacaoDireita(z->pai->pai);
-            }
-        }
-        
-        else {
-            No* y = z->pai->pai->esq;
-            if (y->cor == VERMELHO) {
-                z->pai->cor = PRETO;
-                y->cor = PRETO;
-                z->pai->pai->cor = VERMELHO;
-                z = z->pai->pai;
-            }
-            
-            else {
-                if (z == z->pai->esq) {
-                    z = z->pai;
-                    rotacaoDireita(z);
-                }
-                z->pai->cor = PRETO;
-                z->pai->pai->cor = VERMELHO;
-                rotacaoEsquerda(z->pai->pai);
-            }
-        }
-        if (z == raiz) {
-            break;
-        }
-    }
-    raiz->cor = PRETO;
 }
 
 /**
@@ -217,7 +163,7 @@ std::string ArvoreRN::imprimir() {
             fila.pop();
 
             if (no != NIL) {
-                std::string texto = std::to_string(no->valor) + (no->cor == VERMELHO ? "(R)" : "(P)");
+                std::string texto = std::to_string(no->valor) + (no->cor == VERMELHO ? "(V)" : "(P)");
                 linhaNos << std::setw(espaco) << texto;
 
                 fila.push(no->esq);

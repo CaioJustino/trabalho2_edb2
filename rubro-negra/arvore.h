@@ -5,13 +5,13 @@
 #include "../arvore.h"
 
 /** @enum "Cor"
- *  @brief Cores dos nós da árvore Rubro-Negra.
+ *  @brief Cores dos nós da árvore rubro-negra.
  */
 enum Cor { VERMELHO, PRETO };
 
 /**
  * @class "ArvoreRN"
- * @brief Classe que implementa uma árvore Rubro-Negra balanceada.
+ * @brief Classe que implementa uma árvore rubro-negra balanceada.
  * Aqui, são implementadas os métodos virtuais da classe
  * abstrata "Arvore".
  */
@@ -19,7 +19,7 @@ class ArvoreRN : public Arvore {
     public:
         /**
          * @struct "No"
-         * @brief Estrutura de um nó da Rubro-Negra.
+         * @brief Estrutura de um nó da rubro-negra.
          */
         struct No {
             int valor;  
@@ -46,7 +46,7 @@ class ArvoreRN : public Arvore {
         ArvoreRN();
 
         /**
-         * @brief Gera uma árvore Rubro-Negra com valores aleatórios.
+         * @brief Gera uma árvore rubro-negra com valores aleatórios.
          */
         void gerarArvoreAleatoria() override;
 
