@@ -25,6 +25,8 @@ class Arvore {
 
         virtual bool buscar(int valor) = 0;
 
+        virtual bool remover(int valor) = 0;
+
         virtual std::string imprimir() = 0;
 };
 

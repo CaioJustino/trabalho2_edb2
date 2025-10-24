@@ -208,3 +208,83 @@ std::string ArvoreRN::imprimir() {
 
     return oss.str();
 }
+ArvoreRN::No* ArvoreRN::buscarNo(int valor) {
+    No* atual = raiz;
+    while (atual != NIL) {
+        if (valor == atual->valor) return atual;
+        else if (valor < atual->valor) atual = atual->esq;
+        else atual = atual->dir;
+    }
+    return NIL;
+}
+
+ArvoreRN::No* ArvoreRN::minimo(No* no) {
+    while (no->esq != NIL) no = no->esq;
+    return no;
+}
+
+void ArvoreRN::transplante(No* u, No* v) {
+    if (u->pai == NIL) {
+        raiz = v;
+    } else if (u == u->pai->esq) {
+        u->pai->esq = v;
+    } else {
+        u->pai->dir = v;
+    }
+    v->pai = u->pai;
+}
+
+void ArvoreRN::corrigirRemocao(No* x) {
+    while (x != raiz && x->cor == PRETO) {
+        if (x == x->pai->esq) {
+            No* w = x->pai->dir;
+            if (w->cor == VERMELHO) {
+                w->cor = PRETO;
+                x->pai->cor = VERMELHO;
+                rotacaoEsquerda(x->pai);
+                w = x->pai->dir;
+            }
+            if (w->esq->cor == PRETO && w->dir->cor == PRETO) {
+                w->cor = VERMELHO;
+                x = x->pai;
+            } else {
+                if (w->dir->cor == PRETO) {
+                    w->esq->cor = PRETO;
+                    w->cor = VERMELHO;
+                    rotacaoDireita(w);
+                    w = x->pai->dir;
+                }
+                w->cor = x->pai->cor;
+                x->pai->cor = PRETO;
+                w->dir->cor = PRETO;
+                rotacaoEsquerda(x->pai);
+                x = raiz;
+            }
+        } else {
+            No* w = x->pai->esq;
+            if (w->cor == VERMELHO) {
+                w->cor = PRETO;
+                x->pai->cor = VERMELHO;
+                rotacaoDireita(x->pai);
+                w = x->pai->esq;
+            }
+            if (w->dir->cor == PRETO && w->esq->cor == PRETO) {
+                w->cor = VERMELHO;
+                x = x->pai;
+            } else {
+                if (w->esq->cor == PRETO) {
+                    w->dir->cor = PRETO;
+                    w->cor = VERMELHO;
+                    rotacaoEsquerda(w);
+                    w = x->pai->esq;
+                }
+                w->cor = x->pai->cor;
+                x->pai->cor = PRETO;
+                w->esq->cor = PRETO;
+                rotacaoDireita(x->pai);
+                x = raiz;
+            }
+        }
+    }
+    x->cor = PRETO;
+}

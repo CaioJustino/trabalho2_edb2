@@ -220,3 +220,39 @@ std::string ArvoreAVL::imprimir() {
 
     return oss.str();
 }
+
+
+ArvoreAVL::No* ArvoreAVL::minimo(No* no) {
+    while (no && no->esq) no = no->esq;
+    return no;
+}
+
+ArvoreAVL::No* ArvoreAVL::removerRec(No* no, int valor) {
+    if (!no) return no;
+
+    if (valor < no->valor)
+        no->esq = removerRec(no->esq, valor);
+    else if (valor > no->valor)
+        no->dir = removerRec(no->dir, valor);
+    else {
+        // Nó encontrado
+        if (!no->esq) {
+            No* temp = no->dir;
+            delete no;
+            return temp;
+        } else if (!no->dir) {
+            No* temp = no->esq;
+            delete no;
+            return temp;
+        }
+
+        // Nó com 2 filhos
+        No* temp = minimo(no->dir);
+        no->valor = temp->valor;
+        no->dir = removerRec(no->dir, temp->valor);
+    }
+
+    // Atualiza altura e balanceia
+    atualizaAltura(no);
+    return balancear(no);
+}
