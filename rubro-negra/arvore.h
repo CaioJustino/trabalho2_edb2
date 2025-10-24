@@ -60,11 +60,21 @@ class ArvoreRN : public Arvore {
          */
         std::string imprimir() override;
 
+        /**
+         * @brief Busca um valor na árvore Rubro-Negra.
+         * @param valor Valor a ser procurado.
+         * @return true se o valor for encontrado, false caso contrário.
+         */
+        bool buscar(int valor) override;
+
     private:
         int alturaTotal(No* no);
         void rotacaoEsquerda(No* x);
         void rotacaoDireita(No* y);
         void corrigirInsercao(No* z);
+
+        //Função auxiliar recursiva
+        bool buscarRec(No* no, int valor);
 };
 
 #endif
