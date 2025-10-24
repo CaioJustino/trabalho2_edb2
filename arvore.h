@@ -23,6 +23,8 @@ class Arvore {
 
         virtual void inserir(int valor) = 0;
 
+        virtual bool buscar(int valor) = 0;
+
         virtual std::string imprimir() = 0;
 };
 

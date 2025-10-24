@@ -41,6 +41,12 @@ class ArvoreAVL : public Arvore {
         void gerarArvoreAleatoria() override;
 
         /**
+         * @brief Busca um valor na árvore.
+         * @param valor Valor a ser procurado.
+         */
+        bool buscar(int valor) override;
+
+        /**
          * @brief Insere um nó na árvore.
          */
         void inserir(int valor) override;
@@ -50,13 +56,6 @@ class ArvoreAVL : public Arvore {
          */
         std::string imprimir() override;
 
-        /**
-         * @brief Busca um valor na árvore AVL.
-         * @param valor Valor a ser procurado.
-         * @return true se o valor for encontrado, false caso contrário.
-         */
-        bool buscar(int valor) override;
-
     private:
         int altura(No* t);
         void atualizaAltura(No* t);
@@ -65,12 +64,6 @@ class ArvoreAVL : public Arvore {
         No* rotacaoEsquerda(No* x);
         No* rotacaoDireita(No* y);
         No* balancear(No* no);
-
-
-     /**
-         * @brief Função auxiliar recursiva para busca binária.
-         */
-        bool buscarRec(No* no, int valor);
 };
 
 #endif
