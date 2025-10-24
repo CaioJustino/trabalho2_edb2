@@ -5,7 +5,7 @@
 #include "arvore.h"
 
 /**
- * @brief Busca um valor na árvore Rubro-Negra.
+ * @brief Busca um valor na árvore rubro-negra.
  * 
  * A busca percorre a árvore recursivamente, comparando o valor procurado
  * com o valor armazenado em cada nó até encontrar o elemento ou atingir

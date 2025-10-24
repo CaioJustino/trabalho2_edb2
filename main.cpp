@@ -13,7 +13,7 @@ using namespace std;
  * @brief Função principal do programa.
  * 
  * Ela retorna um "menu interativo" que permite:
- * - Gerar árvores AVL e Rubro-Negra aleatórias.
+ * - Gerar árvores AVL e rubro-negra aleatórias.
  * - Inserir nós nas árvores.
  * - Buscar valores nas árvores.
  * - Imprimir as árvores.
@@ -32,13 +32,13 @@ int main() {
 |_|  |_|\___|_| |_|\__,_|)" << endl;
 
         cout << "\n1 - Gerar uma árvore AVL aleatória.\n";
-        cout << "2 - Gerar uma árvore Rubro-Negra aleatória.\n";
+        cout << "2 - Gerar uma árvore rubro-negra aleatória.\n";
         cout << "\n3 - Inserir um nó na árvore AVL gerada.\n";
-        cout << "4 - Inserir um nó na árvore Rubro-Negra gerada.\n";
+        cout << "4 - Inserir um nó na árvore rubro-negra gerada.\n";
         cout << "\n5 - Buscar um valor na árvore AVL gerada.\n";
-        cout << "6 - Buscar um valor na árvore Rubro-Negra gerada.\n";
+        cout << "6 - Buscar um valor na árvore rubro-negra gerada.\n";
         cout << "\n7 - Imprimir a árvore AVL gerada.\n";
-        cout << "8 - Imprimir a árvore Rubro-Negra gerada.\n";
+        cout << "8 - Imprimir a árvore rubro-negra gerada.\n";
         cout << "0 - Encerrar a execução do programa.\n";
 
         int op;
@@ -58,7 +58,7 @@ int main() {
         else if (op == 2) {
             rb->gerarArvoreAleatoria();
             rbGerada = true;
-            cout << "\nÁrvore Rubro-Negra gerada com sucesso!\n";
+            cout << "\nÁrvore rubro-negra gerada com sucesso!\n";
         }
         
         else if (op == 3) {
@@ -81,11 +81,11 @@ int main() {
 
         else if (op == 4) {
             if(!rbGerada) {
-                cout << "Gere a árvore Rubro-Negra primeiro (opção 2) antes de inserir qualquer nó!\n"; continue;
+                cout << "Gere a árvore rubro-negra primeiro (opção 2) antes de inserir qualquer nó!\n"; continue;
             }
 
             int v;
-            cout << "Valor do nó a ser inserido na árvore Rubro-Negra: ";
+            cout << "Valor do nó a ser inserido na árvore rubro-negra: ";
             cin >> v;
 
             if (v > 100) {
@@ -114,17 +114,17 @@ int main() {
 
         else if (op == 6) {
             if (!rbGerada) {
-                cout << "\nGere a árvore Rubro-Negra primeiro (opção 2)!\n"; continue;
+                cout << "\nGere a árvore rubro-negra primeiro (opção 2)!\n"; continue;
             }
 
             int v;
-            cout << "Valor a buscar na árvore Rubro-Negra: ";
+            cout << "Valor a buscar na árvore rubro-negra: ";
             cin >> v;
 
             if (rb->buscar(v))
-                cout << "\nValor encontrado na árvore Rubro-Negra!\n";
+                cout << "\nValor encontrado na árvore rubro-negra!\n";
             else
-                cout << "\nValor não encontrado na árvore Rubro-Negra...\n";
+                cout << "\nValor não encontrado na árvore rubro-negra...\n";
         }
 
         else if (op == 7) {
