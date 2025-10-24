@@ -50,7 +50,13 @@ class ArvoreAVL : public Arvore {
          */
         std::string imprimir() override;
 
-        
+        /**
+         * @brief Busca um valor na árvore AVL.
+         * @param valor Valor a ser procurado.
+         * @return true se o valor for encontrado, false caso contrário.
+         */
+        bool buscar(int valor) override;
+
     private:
         int altura(No* t);
         void atualizaAltura(No* t);
