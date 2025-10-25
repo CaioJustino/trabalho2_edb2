@@ -68,14 +68,14 @@ public:
     bool buscar(int valor) override;
 
     /**
-     * @brief Imprime a árvore.
-     */
-    std::string imprimir() override;
-
-    /**
      * @brief Remove um nó da árvore rubro-negra.
      */
     bool remover(int valor) override;
+
+    /**
+     * @brief Imprime a árvore.
+     */
+    std::string imprimir() override;
 
 private:
     int alturaTotal(No *no);

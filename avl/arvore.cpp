@@ -221,12 +221,26 @@ std::string ArvoreAVL::imprimir() {
     return oss.str();
 }
 
-
+/**
+ * @brief Retorna o nó com o menor valor a partir de um determinado nó.
+ * @param no Ponteiro para o nó inicial.
+ */
 ArvoreAVL::No* ArvoreAVL::minimo(No* no) {
     while (no && no->esq) no = no->esq;
     return no;
 }
 
+/**
+ * @brief Remove recursivamente um nó da árvore AVL.
+ *
+ * Este método:
+ * - Encontra o nó a ser removido.
+ * - Realiza a remoção conforme o caso (0, 1 ou 2 filhos).
+ * - Atualiza as alturas e realiza rotações necessárias para manter o balanceamento.
+ *
+ * @param no Ponteiro para o nó atual.
+ * @param valor Valor a ser removido.
+ */
 ArvoreAVL::No* ArvoreAVL::removerRec(No* no, int valor) {
     if (!no) return no;
 
@@ -235,7 +249,6 @@ ArvoreAVL::No* ArvoreAVL::removerRec(No* no, int valor) {
     else if (valor > no->valor)
         no->dir = removerRec(no->dir, valor);
     else {
-        // Nó encontrado
         if (!no->esq) {
             No* temp = no->dir;
             delete no;
@@ -246,13 +259,11 @@ ArvoreAVL::No* ArvoreAVL::removerRec(No* no, int valor) {
             return temp;
         }
 
-        // Nó com 2 filhos
         No* temp = minimo(no->dir);
         no->valor = temp->valor;
         no->dir = removerRec(no->dir, temp->valor);
     }
 
-    // Atualiza altura e balanceia
     atualizaAltura(no);
     return balancear(no);
 }

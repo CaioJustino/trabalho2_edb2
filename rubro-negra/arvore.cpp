@@ -208,6 +208,11 @@ std::string ArvoreRN::imprimir() {
 
     return oss.str();
 }
+
+/**
+ * @brief Busca um nó com o valor especificado na árvore rubro-negra.
+ * @param valor Valor do nó a ser buscado.
+ */
 ArvoreRN::No* ArvoreRN::buscarNo(int valor) {
     No* atual = raiz;
     while (atual != NIL) {
@@ -218,11 +223,23 @@ ArvoreRN::No* ArvoreRN::buscarNo(int valor) {
     return NIL;
 }
 
+/**
+ * @brief Retorna o nó mínimo (menor valor) a partir de um nó dado.
+ * @param no Nó inicial.
+ */
 ArvoreRN::No* ArvoreRN::minimo(No* no) {
     while (no->esq != NIL) no = no->esq;
     return no;
 }
 
+/**
+ * @brief Substitui uma subárvore por outra durante remoção.
+ * 
+ * Este método liga o pai do nó `u` ao nó `v`, substituindo a posição de `u` por `v`.
+ *
+ * @param u Nó a ser substituído.
+ * @param v Nó que substitui `u`.
+ */
 void ArvoreRN::transplante(No* u, No* v) {
     if (u->pai == NIL) {
         raiz = v;
@@ -234,6 +251,15 @@ void ArvoreRN::transplante(No* u, No* v) {
     v->pai = u->pai;
 }
 
+/**
+ * @brief Corrige as propriedades da árvore rubro-negra após uma remoção.
+ *
+ * Esse método garante que as propriedades de balanceamento e coloração da árvore
+ * sejam mantidas após a remoção de um nó preto. Realiza rotações e recolorações
+ * conforme necessário.
+ *
+ * @param x Nó a partir do qual a correção deve ser iniciada.
+ */
 void ArvoreRN::corrigirRemocao(No* x) {
     while (x != raiz && x->cor == PRETO) {
         if (x == x->pai->esq) {

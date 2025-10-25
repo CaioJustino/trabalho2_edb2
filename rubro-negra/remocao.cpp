@@ -1,8 +1,20 @@
-#include "arvore.h"
+// Imports
 #include <iostream>
+
+#include "arvore.h"
 
 using namespace std;
 
+/**
+ * @brief Remove um nó com o valor especificado da árvore rubro-negra.
+ *
+ * O método segue o algoritmo clássico de remoção em árvores rubro-negras:
+ * - Busca o nó a ser removido.
+ * - Realiza transplante de subárvores quando necessário.
+ * - Corrige as propriedades da árvore caso um nó preto tenha sido removido.
+ *
+ * @param valor Valor do nó a ser removido.
+ */
 bool ArvoreRN::remover(int valor) {
     No* z = buscarNo(valor);
     if (z == NIL) return false;
@@ -33,9 +45,12 @@ bool ArvoreRN::remover(int valor) {
         y->esq->pai = y;
         y->cor = z->cor;
     }
+
     delete z;
+
     if (corOriginalY == PRETO) {
         corrigirRemocao(x);
     }
+
     return true;
 }
