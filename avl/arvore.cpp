@@ -153,72 +153,88 @@ void ArvoreAVL::gerarArvoreAleatoria() {
  * @return String formatada da árvore.
  */
 std::string ArvoreAVL::imprimir() {
-    if (!raiz) {
+    if (raiz == nullptr) {
         return "Árvore vazia.\n";
     }
 
-    std::ostringstream oss;
-    std::queue<No*> fila;
-    fila.push(raiz);
+    struct NodeInfo {
+        No* node;
+        int pos;
+    };
 
     int h = alturaTotal(raiz);
-    int nivel = 0;
-    int elementosNoNivel = 1;
-    int proximoNivel = 0;
-    int espaco = (1 << (h - 1)) * 3;
+    if (h <= 0) return "Árvore vazia.\n";
 
-    while (!fila.empty()) {
-        std::ostringstream linhaNos, linhaConexoes;
-        bool temProximoNivel = false;
+    const int MAX_WIDTH = 4096;
+    long long width_ll = (1LL << h) * 2LL;
+    int width = (width_ll > MAX_WIDTH) ? MAX_WIDTH : static_cast<int>(width_ll);
+    if (width < 32) width = 32;
 
-        for (int i = 0; i < elementosNoNivel; i++) {
-            No* no = fila.front();
-            fila.pop();
+    std::queue<NodeInfo> q;
+    q.push({raiz, width / 2});
 
-            linhaNos << std::setw(espaco)
-                     << (no ? std::to_string(no->valor) : " ");
+    int level = 0;
+    int nodesInLevel = 1;
 
-            if (no) {
-                fila.push(no->esq);
-                fila.push(no->dir);
-                proximoNivel += 2;
-                
-                if (no->esq || no->dir) {
-                    temProximoNivel = true;
+    std::ostringstream out;
+
+    while (!q.empty() && level < h) {
+        std::vector<char> line(width, ' ');
+        std::vector<char> branch(width, ' ');
+
+        int nextLevelNodes = 0;
+
+        for (int i = 0; i < nodesInLevel; ++i) {
+            NodeInfo ni = q.front();
+            q.pop();
+
+            if (ni.node != nullptr) {
+                std::string keyStr = std::to_string(ni.node->valor);
+
+                for (size_t j = 0; j < keyStr.size(); ++j) {
+                    int idx = ni.pos + static_cast<int>(j);
+                    if (idx >= 0 && idx < width) line[idx] = keyStr[j];
                 }
 
-                linhaConexoes << std::setw(espaco - 2)
-                              << (no->esq ? "/" : " ")
-                              << " "
-                              << (no->dir ? "\\" : " ");
+                if (ni.node->esq != nullptr) {
+                    int idx = ni.pos - 1;
+                    if (idx >= 0 && idx < width) branch[idx] = '/';
+                }
+                if (ni.node->dir != nullptr) {
+                    int idx = ni.pos + static_cast<int>(keyStr.size());
+                    if (idx >= 0 && idx < width) branch[idx] = '\\';
+                }
+
+                int gap = (h - level >= 2) ? (1 << (h - level - 2)) : 1;
+                q.push({ni.node->esq, ni.pos - gap});
+                q.push({ni.node->dir, ni.pos + gap});
+                nextLevelNodes += 2;
+            } else {
+                int gap = (h - level >= 2) ? (1 << (h - level - 2)) : 1;
+                q.push({nullptr, ni.pos - gap});
+                q.push({nullptr, ni.pos + gap});
+                nextLevelNodes += 2;
             }
-            
-            else {
-                fila.push(nullptr);
-                fila.push(nullptr);
-                proximoNivel += 2;
-                linhaConexoes << std::setw(espaco) << " ";
-            }
         }
 
-        oss << linhaNos.str() << "\n";
-        
-        if (temProximoNivel) {
-            oss << linhaConexoes.str() << "\n";
-        }
+        for (char ch : line) out << ch;
+        out << '\n';
+        for (char ch : branch) out << ch;
+        out << '\n';
 
-        nivel++;
-        
-        if (!temProximoNivel) {
-            break;
-        }
+        nodesInLevel = nextLevelNodes;
+        ++level;
 
-        elementosNoNivel = proximoNivel;
-        proximoNivel = 0;
-        espaco = std::max(espaco / 2, 3);
+        bool allNull = true;
+        std::queue<NodeInfo> tmpq = q;
+        for (int i = 0; i < nodesInLevel && !tmpq.empty(); ++i) {
+            if (tmpq.front().node != nullptr) { allNull = false; break; }
+            tmpq.pop();
+        }
+        if (allNull) break;
     }
 
-    return oss.str();
+    return out.str();
 }
 
 /**
