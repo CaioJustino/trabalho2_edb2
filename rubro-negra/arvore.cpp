@@ -140,73 +140,89 @@ std::string ArvoreRN::imprimir() {
         return "Árvore vazia.\n";
     }
 
-    std::ostringstream oss;
-    std::queue<No*> fila;
-    fila.push(raiz);
+    struct NodeInfo {
+        No* node;
+        int pos;
+    };
 
     int h = alturaTotal(raiz);
-    int nivel = 0;
-    int elementosNoNivel = 1;
-    int proximoNivel = 0;
-    int espaco = (1 << (h - 1)) * 4;
+    if (h <= 0) return "Árvore vazia.\n";
 
-    if (espaco < 5) {
-        espaco = 5;
-    }
+    const int MAX_WIDTH = 4096;
+    long long width_ll = (1LL << (h + 3));
+    int width = (width_ll > MAX_WIDTH) ? MAX_WIDTH : static_cast<int>(width_ll);
+    if (width < 64) width = 64;
 
-    while (!fila.empty() && nivel < h) {
-        std::ostringstream linhaNos, linhaConexoes;
-        bool temProximoNivel = false;
+    std::queue<NodeInfo> q;
+    q.push({raiz, width / 2});
 
-        for (int i = 0; i < elementosNoNivel; i++) {
-            No* no = fila.front();
-            fila.pop();
+    int level = 0;
+    int nodesInLevel = 1;
 
-            if (no != NIL) {
-                std::string texto = std::to_string(no->valor) + (no->cor == VERMELHO ? "(V)" : "(P)");
-                linhaNos << std::setw(espaco) << texto;
+    std::ostringstream out;
 
-                fila.push(no->esq);
-                fila.push(no->dir);
-                proximoNivel += 2;
+    while (!q.empty() && level < h) {
+        std::vector<char> line(width, ' ');
+        std::vector<char> branch(width, ' ');
 
-                if (no->esq != NIL || no->dir != NIL) {
-                    temProximoNivel = true;
+        int nextLevelNodes = 0;
+
+        int gap = std::max(2, (1 << (h - level - 1)));
+
+        for (int i = 0; i < nodesInLevel; ++i) {
+            NodeInfo ni = q.front();
+            q.pop();
+
+            if (ni.node && ni.node != NIL) {
+                std::string colorStr = (ni.node->cor == VERMELHO) ? "(V)" : "(P)";
+                std::string keyStr = std::to_string(ni.node->valor) + colorStr;
+
+                int len = static_cast<int>(keyStr.size());
+                int start = ni.pos - len / 2;
+                if (start < 0) start = 0;
+                int end = std::min(start + len, width);
+
+                for (int j = start; j < end; ++j) {
+                    line[j] = keyStr[j - start];
                 }
 
-                linhaConexoes << std::setw(espaco - 3)
-                              << (no->esq != NIL ? "/" : " ")
-                              << "   "
-                              << (no->dir != NIL ? "\\" : " ");
+                if (ni.node->esq != NIL) {
+                    int idx = ni.pos - gap / 2;
+                    if (idx >= 0 && idx < width) branch[idx] = '/';
+                }
+                if (ni.node->dir != NIL) {
+                    int idx = ni.pos + gap / 2;
+                    if (idx >= 0 && idx < width) branch[idx] = '\\';
+                }
+
+                q.push({ni.node->esq, ni.pos - gap});
+                q.push({ni.node->dir, ni.pos + gap});
+                nextLevelNodes += 2;
+            } else {
+                q.push({NIL, ni.pos - gap});
+                q.push({NIL, ni.pos + gap});
+                nextLevelNodes += 2;
             }
-            
-            else {
-                linhaNos << std::setw(espaco) << " ";
-                fila.push(NIL);
-                fila.push(NIL);
-                proximoNivel += 2;
-                linhaConexoes << std::setw(espaco) << " ";
-            }
         }
 
-        oss << linhaNos.str() << "\n";
+        for (char ch : line) out << ch;
+        out << '\n';
+        for (char ch : branch) out << ch;
+        out << '\n';
 
-        if (temProximoNivel) {
-            oss << linhaConexoes.str() << "\n";
+        nodesInLevel = nextLevelNodes;
+        ++level;
+
+        bool allNil = true;
+        std::queue<NodeInfo> tmp = q;
+        for (int i = 0; i < nodesInLevel && !tmp.empty(); ++i) {
+            if (tmp.front().node != NIL) { allNil = false; break; }
+            tmp.pop();
         }
-
-        nivel++;
-
-        if (!temProximoNivel) {
-            break;
-        }
-
-        elementosNoNivel = proximoNivel;
-        proximoNivel = 0;
-        espaco = std::max(espaco / 2, 5);
+        if (allNil) break;
     }
 
-    return oss.str();
+    return out.str();
 }
 
 /**
