@@ -42,27 +42,26 @@ public:
     void gerarArvoreAleatoria() override;
 
     /**
+     * @brief Insere um nó na árvore.
+     */
+    void inserir(int valor) override;
+
+    /**
      * @brief Busca um valor na árvore.
      * @param valor Valor a ser procurado.
      */
     bool buscar(int valor) override;
 
     /**
-     * @brief Insere um nó na árvore.
+     * @brief Remove um nó da árvore AVL.
+     * @param valor Valor a ser removido.
      */
-    void inserir(int valor) override;
+    bool remover(int valor) override;
 
     /**
      * @brief Imprime a árvore.
      */
     std::string imprimir() override;
-
-    /**
-     * @brief Remove um nó da árvore AVL.
-     * @param valor Valor a ser removido.
-     * @return true se removido, false se não encontrado.
-     */
-    bool remover(int valor) override;
 
 private:
     int altura(No *t);
