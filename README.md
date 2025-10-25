@@ -1,22 +1,19 @@
 # Trabalho Unidade 2: Árvores Balanceadas (AVL e Rubro-Negra)
 
-O objetivo do trabalho é desenvolver, implementar e analisar o funcionamento de árvores balanceadas, especificamente as árvores AVL e rubro-negra, por meio de um projeto prático e de um relatório técnico.
-
-O projeto deve demonstrar a estrutura de dados, as estratégias de balanceamento, as funções implementadas (como inserção, busca e remoção), além de apresentar os desafios enfrentados, as soluções adotadas e os resultados obtidos nos testes.
+A princípio, o objetivo desse presente trabalho é, por meio de um projeto prático e de um relatório técnico, desenvolver, implementar e analisar o funcionamento de árvores balanceadas, especificamente as árvores AVL e rubro-negra.
 <br><br>
 
-## 🔍 Algoritmos Ultilizados
-1. Busca 
-2. Busca Binária
+## 🔍 Operações Implementadas
+1. Geração Aleatória de Árvores
+2. Inserção de Nós
+3. Busca Binária
+4. Remoção de Nós
+5. Impressão das Árvores
 <br><br>
 
 ## 🛠️ Tecnologias Utilizadas
 - Linguagem principal: [C++](https://devdocs.io/cpp)
 - Ferramenta de desenvolvimento: [VS Code](https://code.visualstudio.com)
-- Plotagem dos gráficos: [Google Colab](https://colab.google)
-
-📎 Notebook da plotagem:
-[Google Colab - Análise de Complexidade](https://colab.research.google.com/drive/17MxFa61Zyo2apfru1bi9ZCNg9pwPJymf?authuser=1)
 <br><br>
 
 ## 📚 Bibliotecas Utilizadas
