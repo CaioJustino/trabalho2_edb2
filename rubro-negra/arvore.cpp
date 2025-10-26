@@ -140,7 +140,7 @@ std::string ArvoreRN::imprimir() {
         return "Árvore vazia.\n";
     }
 
-    struct NodeInfo {
+    struct NoInfo {
         No* node;
         int pos;
     };
@@ -153,7 +153,7 @@ std::string ArvoreRN::imprimir() {
     int width = (width_ll > MAX_WIDTH) ? MAX_WIDTH : static_cast<int>(width_ll);
     if (width < 64) width = 64;
 
-    std::queue<NodeInfo> q;
+    std::queue<NoInfo> q;
     q.push({raiz, width / 2});
 
     int level = 0;
@@ -170,7 +170,7 @@ std::string ArvoreRN::imprimir() {
         int gap = std::max(2, (1 << (h - level - 1)));
 
         for (int i = 0; i < nodesInLevel; ++i) {
-            NodeInfo ni = q.front();
+            NoInfo ni = q.front();
             q.pop();
 
             if (ni.node && ni.node != NIL) {
@@ -214,7 +214,7 @@ std::string ArvoreRN::imprimir() {
         ++level;
 
         bool allNil = true;
-        std::queue<NodeInfo> tmp = q;
+        std::queue<NoInfo> tmp = q;
         for (int i = 0; i < nodesInLevel && !tmp.empty(); ++i) {
             if (tmp.front().node != NIL) { allNil = false; break; }
             tmp.pop();

@@ -150,13 +150,13 @@ int main()
 
         else if (op == 7)
         {
-            cout << "\n---------- ÁRVORE AVL GERADA ----------\n";
+            cout << "\n# - ÁRVORE AVL GERADA:\n\n";
             cout << avl->imprimir();
         }
 
         else if (op == 8)
         {
-            cout << "\n---------- ÁRVORE RUBRO-NEGRA GERADA ----------\n";
+            cout << "\n# - ÁRVORE RUBRO-NEGRA GERADA:\n\n";
             cout << rb->imprimir();
         }
 
