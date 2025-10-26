@@ -157,7 +157,7 @@ std::string ArvoreAVL::imprimir() {
         return "Árvore vazia.\n";
     }
 
-    struct NodeInfo {
+    struct NoInfo {
         No* node;
         int pos;
     };
@@ -170,7 +170,7 @@ std::string ArvoreAVL::imprimir() {
     int width = (width_ll > MAX_WIDTH) ? MAX_WIDTH : static_cast<int>(width_ll);
     if (width < 32) width = 32;
 
-    std::queue<NodeInfo> q;
+    std::queue<NoInfo> q;
     q.push({raiz, width / 2});
 
     int level = 0;
@@ -185,7 +185,7 @@ std::string ArvoreAVL::imprimir() {
         int nextLevelNodes = 0;
 
         for (int i = 0; i < nodesInLevel; ++i) {
-            NodeInfo ni = q.front();
+            NoInfo ni = q.front();
             q.pop();
 
             if (ni.node != nullptr) {
@@ -226,7 +226,7 @@ std::string ArvoreAVL::imprimir() {
         ++level;
 
         bool allNull = true;
-        std::queue<NodeInfo> tmpq = q;
+        std::queue<NoInfo> tmpq = q;
         for (int i = 0; i < nodesInLevel && !tmpq.empty(); ++i) {
             if (tmpq.front().node != nullptr) { allNull = false; break; }
             tmpq.pop();

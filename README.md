@@ -109,7 +109,8 @@ Opção: 1
 0 - Encerrar a execução do programa.
 Opção: 7
 
----------- ÁRVORE AVL GERADA ----------
+# - ÁRVORE AVL GERADA:
+
                 77              
                /  \             
             35      96          
