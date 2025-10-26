@@ -31,6 +31,10 @@ A princípio, o objetivo desse presente trabalho é, por meio de um projeto prá
 - `string`: std::string, std::to_string.
 <br><br>
 
+## ⚠️ Dependências Necessárias
+- Compilador: [GCC (GNU Compiler Collection)](https://gcc.gnu.org)
+<br><br>
+
 ## ⚙️ Configuração e Instalação
 
 1. Clone este repositório em sua máquina local.
@@ -116,8 +120,6 @@ Opção: 7
             35      96          
            /  \    /  \         
           14  39  85  100       
-                 /  \/          
-                 799299         
 ```
 <br><br>
 
